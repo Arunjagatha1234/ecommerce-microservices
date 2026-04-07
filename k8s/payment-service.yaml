@@ -3,10 +3,9 @@ kind: Service
 metadata:
   name: payment-service
 spec:
-  type: NodePort
+  type: LoadBalancer
   selector:
     app: payment-service
   ports:
     - port: 8083
       targetPort: 8083
-      nodePort: 30003

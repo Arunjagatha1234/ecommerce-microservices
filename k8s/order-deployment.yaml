@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: order-service
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: order-service
@@ -14,7 +14,20 @@ spec:
     spec:
       containers:
         - name: order-service
-          image: arunjagatha/order-service:v2
+          image: 883178794881.dkr.ecr.ap-south-1.amazonaws.com/order-service:v6
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8082
+          env:
+            - name: SPRING_DATASOURCE_USERNAME
+              valueFrom:
+                  secretKeyRef:
+                    name: db-credentials
+                    key: username
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                  secretKeyRef:
+                    name: db-credentials
+                    key: password
+            - name: SPRING_KAFKA_BOOTSTRAP_SERVERS
+              value: b-3.aruncluster1.ddm72v.c2.kafka.ap-south-1.amazonaws.com:9098,b-2.aruncluster1.ddm72v.c2.kafka.ap-south-1.amazonaws.com:9098,b-1.aruncluster1.ddm72v.c2.kafka.ap-south-1.amazonaws.com:9098

@@ -3,10 +3,9 @@ kind: Service
 metadata:
   name: order-service
 spec:
-  type: NodePort
+  type: LoadBalancer
   selector:
     app: order-service
   ports:
     - port: 8082
       targetPort: 8082
-      nodePort: 30002
